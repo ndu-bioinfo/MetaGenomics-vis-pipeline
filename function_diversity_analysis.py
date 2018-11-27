@@ -10,6 +10,10 @@ from plotly import tools
 import colorlover as cl
 from scipy.stats import f_oneway
 
+def Hawk_smash(List):
+    '''Flattern lists within a list '''
+    return [item for sublist in List for item in sublist]
+
 def plot_contour(metadata,factor,resolution = 50,contour_method='linear'):
     resolution = str(resolution)+'j'
     x = metadata['x'].values
@@ -34,16 +38,34 @@ def group_data_ANOVA(Subset,plot_list):
     df_ANOVA_m = df_ANOVA_m.fillna(1)
     df_ANOVA_test = df_ANOVA_m.copy() ### Test here
     i = 0
+    
     for col in plot_list:
         if len(df_ANOVA_m.loc[df_ANOVA_m[df_ANOVA_m[col]==1].index])>0:
             df_ANOVA_m.loc[df_ANOVA_m[df_ANOVA_m[col]==1].index] = chr(65+i)
             i+=1
     return dict(df_ANOVA_m[df_ANOVA_m.columns[0]])
 
+def export_values(fig):
+    sample_ID = []
+    y_values = []
+    y_error = []
+    label = []
+    for g in fig['data']:
+        sample_ID.append([A.split(' (')[0][3:]+'-'+B for A,B in zip(g['text'],g['x'])])
+        y_values.append(g['y'])
+        y_error.append(g['error_y']['array'])
+        label.append([A.split('(')[-1][:1] for A in g['text']])
+    sample_ID = Hawk_smash(sample_ID)
+    y_values = Hawk_smash(y_values)
+    y_error = Hawk_smash(y_error)
+    label = Hawk_smash(label)
+    return pd.DataFrame({'y':y_values,'y_error':y_error,'label':label},index = sample_ID)
 
 def Beta_Diversity_Contour_plot(df_alpha_meta,df_PCoA_Matrix,a_div_col,group_factors,contour_factors,node_scale=0.15,contour_resolution=50,opacity_node=0.9,opacity_contour=0.6,contour_cmap='heatmap',contour_method = 'linear'):
     
-	Site_size = dict(zip(df_alpha_meta.index,df_alpha_meta[a_div_col]))
+    
+    
+    Site_size = dict(zip(df_alpha_meta.index,df_alpha_meta[a_div_col]))
     Scatter_data = []
     Scatter_data_length = []
     for Group_factor in group_factors:
@@ -203,6 +225,7 @@ def Diversity_bar_plot(df_alpha_meta,AxB_table,div_a_col = 'faith_pd',df_matrix 
         
         
         group_label = group_data_ANOVA(Subsets,plot_list)
+
         
         ######### Plot data ##########
         for B_id,B in enumerate(List_B):
