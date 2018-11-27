@@ -24,7 +24,6 @@ def plot_contour(metadata,factor,resolution = 50,contour_method='linear'):
     Z = griddata(points, z, (X, Y), method=contour_method)
     return X,Y,Z
 
-
 def group_data_ANOVA(Subset,plot_list):
     '''Group data by alphabetic names using oneway ANOVA'''
     ANOVA_m = np.zeros((len(Subset),len(Subset)))
@@ -62,9 +61,7 @@ def export_values(fig):
     return pd.DataFrame({'y':y_values,'y_error':y_error,'label':label},index = sample_ID)
 
 def Beta_Diversity_Contour_plot(df_alpha_meta,df_PCoA_Matrix,a_div_col,group_factors,contour_factors,node_scale=0.15,contour_resolution=50,opacity_node=0.9,opacity_contour=0.6,contour_cmap='heatmap',contour_method = 'linear'):
-    
-    
-    
+
     Site_size = dict(zip(df_alpha_meta.index,df_alpha_meta[a_div_col]))
     Scatter_data = []
     Scatter_data_length = []
@@ -112,7 +109,6 @@ def Beta_Diversity_Contour_plot(df_alpha_meta,df_PCoA_Matrix,a_div_col,group_fac
     for Factor in contour_factors:
         M[Factor] = plot_contour(df_alpha_meta,Factor,contour_resolution,contour_method)
 
-     # data list for plotting
  # data list for plotting
     data = Scatter_data + [go.Contour(
             z= M[Factor][2],
