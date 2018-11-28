@@ -1,6 +1,6 @@
 ## Functions for creating diversity plots using plotly
 
-#### alpha or beta diversity bar plot
+#### alpha or beta diversity plots
 
 The data frame contains alphda diversity values should be in the following format;  diversity values calculated by different methodolgies can be stored in separated columns and called in the plot funcitons. 
 
@@ -23,4 +23,7 @@ beta diversity data are stored in dictionary, with keys as the name of methods u
 | 201604_093.3_026.7_20	| 0.781583	| 0.641250	| 0.796750	| 0.000000	| 0.566000| 
 | 201407_086.7_045.0_53	| 0.651833	| 0.536583	| 0.761083	| 0.566000	| 0.000000| 
 
+The following interactive plots were generated using the scripts in the jupyter notebook
 
+![16S bar plots](bar_plot.png)
+![16S PCOA plots](PCOA.png)
