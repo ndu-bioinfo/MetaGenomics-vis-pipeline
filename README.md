@@ -1,6 +1,6 @@
 ## Functions for creating diversity plots using plotly
 
-#### alpha or beta diversity plots
+#### alpha and beta diversity plots
 
 The data frame contains alphda diversity values should be in the following format;  diversity values calculated by different methodolgies can be stored in separated columns and called in the plot funcitons. 
 
