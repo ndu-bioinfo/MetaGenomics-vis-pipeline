@@ -291,7 +291,7 @@ def Diversity_bar_plot(df_alpha_meta,AxB_table,div_a_col = 'faith_pd',df_matrix 
                         error_y=dict(
                         type='data',
                         array=[np.std(np.mean(df_matrix[Dict_AxB[y]].loc[Dict_AxB[y]])) for y in List_A],
-                        visible=True,opacity=0.6
+                        visible=True
                         ),
                         name = B,
                         text =['   '+B+' ('+group_label[y+'-'+B]+')' for y in List_A],
@@ -314,7 +314,7 @@ def Diversity_bar_plot(df_alpha_meta,AxB_table,div_a_col = 'faith_pd',df_matrix 
                         error_y=dict(
                         type='data',
                         array=[np.std(df_alpha_meta[div_a_col].loc[Dict_AxB[y]]) for y in List_A],
-                        visible=True,opacity=0.6
+                        visible=True
                         ),
                         name = B,
                         text =['   '+B+' ('+group_label[y+'-'+B]+')' for y in List_A],
